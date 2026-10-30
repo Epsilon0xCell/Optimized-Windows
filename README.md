@@ -1,3 +1,5 @@
+![Banner](banner.png)
+
 # Optimized-Windows + Security Tweaks
 
 ```
