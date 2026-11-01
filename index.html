@@ -3,144 +3,76 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Optimized Windows: what it is, how it runs, where it stops</title>
-<meta name="description" content="Optimized Windows is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.">
+<title>Optimized-Windows: the reading nook</title>
 <style>
-:root {
-  --bg: #101214; --panel: #1c1f22; --ink: #eee8dc;
-  --mut: #25292d;
-  --acc: #e8b339; --acc2: #c75432;
-  --line: #1c1f22;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: Charter, Georgia, serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'DejaVu Sans Mono', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
+@font-face{font-family:'Bitter';src:url('fonts/Bitter.ttf') format('truetype')}
+@font-face{font-family:'Alegreya Sans';src:url('fonts/AlegreyaSans-Regular.ttf') format('truetype')}
+@font-face{font-family:'Alegreya Sans';src:url('fonts/AlegreyaSans-Bold.ttf') format('truetype');font-weight:700}
+*{box-sizing:border-box}
+body{margin:0;background:#eceeed;color:#2c3438;font-family:'Alegreya Sans',sans-serif;line-height:1.65}
+.topband{background:#f4f5f2;border-bottom:6px solid #7e94a8;padding:30px 22px 22px;text-align:center}
+.topband h1{font-family:'Bitter',serif;letter-spacing:4px;font-size:1.9rem;margin:0;color:#2f4a6e;text-transform:uppercase}
+.scope{font-size:1.08rem;margin:8px auto 0;max-width:640px}
+.bay{max-width:1060px;margin:0 auto;padding:24px 20px 8px;display:flex;gap:20px;align-items:flex-start}
+.seat{flex:1.25;background:#ceb684;border-radius:22px;padding:26px 28px;position:relative}
+.seat::after{content:'';position:absolute;inset:9px;border:2px dashed #6e86a8;border-radius:15px;pointer-events:none}
+.seat h2,.pane h2{font-family:'Bitter',serif;letter-spacing:2px;text-transform:uppercase;font-size:1.05rem;margin:0 0 10px;color:#2f4a6e}
+.panes{flex:2;display:flex;gap:16px}
+.pane{flex:1;background:#f4f5f2;border-top:10px solid #eceeed;box-shadow:0 3px 0 #b9beb9;padding:18px 18px 14px;position:relative}
+.pane.caution::before{content:'';position:absolute;top:0;left:0;right:0;height:44px;background:repeating-linear-gradient(93deg,transparent 0 26px,rgba(126,148,168,.35) 26px 29px,transparent 29px 58px);pointer-events:none}
+.book{display:inline-block;background:#f4f5f2;border:1px solid #b9beb9;border-left:9px solid #46607a;padding:10px 16px;font-family:'Bitter',serif;color:#2f4a6e;text-decoration:none;margin-top:8px;transition:transform .15s}
+.book:hover{transform:rotate(-2.5deg);border-left-color:#2f4a6e}
+.cushion{display:inline-block;background:#ceb684;border-radius:16px;padding:11px 22px;position:relative;color:#2c3438;text-decoration:none;font-weight:700;margin-top:10px}
+.cushion::after{content:'';position:absolute;inset:4px;border:2px dashed #6e86a8;border-radius:11px;pointer-events:none}
+.cushion:hover{background:#c3ab77}
+a.lnk{color:#2f4a6e;text-decoration:none}
+a.lnk::before{content:'';display:inline-block;width:8px;height:11px;border-radius:50% 50% 60% 60%;background:#aebfc9;margin-right:8px;vertical-align:-1px}
+a.lnk:hover::before{height:15px;background:#7e94a8}
+.muntin{height:13px;background:#eceeed;position:relative;margin:26px auto;max-width:1060px}
+.muntin::after{content:'';position:absolute;left:0;right:0;top:5px;height:2px;background:#7e94a8}
+footer{background:#ceb684;padding:20px 22px 26px;text-align:center;font-size:.93rem}
+@media(max-width:820px){.bay{flex-direction:column}.panes{flex-direction:column}}
 </style>
 </head>
-<body class="layout-note">
-<!-- This page exists for Optimized-Windows alone: the layout (notebook),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
-<header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Optimized Windows logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Optimized Windows</h1>
-  <p class="mono"><a href="https://github.com/Epsilon0xCell/Optimized-Windows">github.com/Epsilon0xCell/Optimized-Windows</a></p>
-</header>
-
-<main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/Epsilon0xCell/Optimized-Windows">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Optimized Windows is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Optimized Windows: 1 files, 6 counted
-          lines across Markdown 6. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>README.md</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/Epsilon0xCell/Optimized-Windows.git<br>$ cd Optimized-Windows</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>README.md</code>, line 1 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code># Optimized-Windows + Security Tweaks
-
-```
-https://atlasos.net/
-https://medicatusb.com/ (I do not trust this, I found out that this project uses pirated software, this means that this project took a security risk I am unwilling to take, therefore I have purged this software.)
-```</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>README.md</code></td><td>6</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">no named functions in the snapshot</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/Epsilon0xCell/Optimized-Windows/tree/main/Optimized-Windows-Visuals">Optimized-Windows-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Optimized Windows">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Optimized Windows">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Optimized Windows">
-        </div>
-      </section>
-    </div>
-  </section>
-</main>
+<body>
+<div class="topband">
+<h1>Optimized-Windows</h1>
+<p class="scope"><strong>This page collects links and judgements. It installs nothing.</strong> The repository is a pointer list, not a script: nothing here applies a tweak or changes a Windows system.</p>
+</div>
+<img src="assets/banner.png" alt="The window seat bay with its brass plaque" style="display:block;width:100%;max-width:1060px;margin:20px auto 0;border:6px solid #eceeed">
+<div class="bay">
+<section class="seat">
+<h2>The recommended route</h2>
+<p>One recommendation is worth following outward: AtlasOS, a Windows modification project offered for a leaner system, described here only as far as this repository describes it. The reader is being sent to its own home to continue.</p>
+<a class="book" href="https://atlasos.net/">AtlasOS, at atlasos.net</a>
+<br>
+<a class="cushion" href="https://github.com/Epsilon0xCell/Optimized-Windows">The repo on GitHub</a>
+</section>
+<div class="panes">
+<section class="pane caution">
+<h2>Pane one: the removed project</h2>
+<p>The list's second link, medicatusb.com, is kept as a warning, not a recommendation. The author verdict, stated plainly: he does not trust it, found out that the project uses pirated software, considers that a security risk he is unwilling to take, and purged the software from his machine.</p>
+</section>
+<section class="pane">
+<h2>Pane two: a pointer is not a tool</h2>
+<p>Following a pointer and running a tool are different acts. This page performs the first only. Treat any Windows optimization tool as a change to your own system and check what it does before running it.</p>
+</section>
+<section class="pane">
+<h2>Pane three: choosing for oneself</h2>
+<p>A pointer list is an opinion with links attached. Readers should inspect any modification at its own home before adopting it, and weigh it against their own machine and their own tolerance for risk.</p>
+<p><a class="lnk" href="https://github.com/Epsilon0xCell/Optimized-Windows/tree/main/Optimized-Windows-Visuals">The visuals folder in the repo</a></p>
+</section>
+</div>
+</div>
+<div class="muntin"></div>
 <footer>
-  <p>Optimized Windows is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
+<svg width="220" height="40" viewBox="0 0 220 40" role="img" aria-label="The cushion dent with rain shadow" style="display:block;margin:0 auto 8px">
+<rect width="220" height="40" fill="#ceb684"/>
+<ellipse cx="110" cy="24" rx="70" ry="9" fill="#b39b6c"/>
+<polygon points="30,0 52,0 74,40 44,40" fill="#46586a" opacity="0.14"/>
+<polygon points="140,0 162,0 184,40 154,40" fill="#46586a" opacity="0.14"/>
+</svg>
+There are no download buttons on this site, by design, because there is nothing here to download. Fonts: Bitter and Alegreya Sans (SIL Open Font License 1.1, license beside each font file).
 </footer>
 </body>
 </html>
