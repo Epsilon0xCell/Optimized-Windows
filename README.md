@@ -1,11 +1,21 @@
-![Banner](banner.png)
+![Intro: rain shadows playing across an empty window seat cushion](intro-banner.png)
+
 
 # Optimized-Windows + Security Tweaks
+
+![Banner](banner.png)
+
+![Scene](scene.svg)
+
+> **POINTER** This page only points onward. Nothing in this repo applies a tweak, ships a script, or changes a setting.
 
 This repo is a pointer list, not a script. Nothing in this repo applies
 a tweak or changes a Windows system; it only links to the projects
 below. Treat any Windows optimization tool as a change to your own
 system and check what it does before running it.
+
+
+![Separator](sep-heavy.svg)
 
 ## Links
 
